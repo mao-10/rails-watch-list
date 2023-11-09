@@ -1,23 +1,26 @@
 <div class="container p-3">
   <div class="top-section text-center mb-5">
-    <h1 class=""> <%=@list.name%> </h1>
+    <h1 class="mb-3"> <%=@list.name%> </h1>
     <%= link_to "Add a bookmark", new_list_bookmark_path(@list), class: "btn btn-primary rounded" %>
   </div>
   <%# <%= link_to 'Go back to all lists', lists_path  %>
-  <div class="container d-flex">
+  <% if @list.bookmarks.any? %>
+  <div class="container" style=" display: grid; grid-template-columns: 1fr 1fr 1fr; ">
     <% @list.bookmarks.each do |bookmark| %>
 
-      <div class="card w-100 overflow-auto" style="">
+      <div class="card" style="">
       <%= image_tag bookmark.movie.poster_url, alt: "Movie Poster" %>
         <div class="card-body">
           <h5 class="card-title"><%= bookmark.movie.title %></h5>
-          <h5 class="card-title"><%= bookmark.movie.rating %></h5>
+          <h5 class="card-title"><%= bookmark.movie.rating %> <i class="fa-solid fa-star text-warning"></i></h5>
           <p class="card-text"><%= bookmark.movie.overview %></p>
           <%= link_to "delete", bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-primary" %>
         </div>
       </div>
     <% end %>
-
+  <% else  %>
+      "You don't have any movies..."
+  <% end %>
   </div>
 </div>
 
