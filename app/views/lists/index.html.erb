@@ -1,16 +1,19 @@
 <div class="container p-3 text-center">
 
   <h1>Movie Lists</h1>
+
   <% if @lists.any? %>
-  <ul class="list-group">
     <%@lists.each do |list|%>
-      <li class="list-group-item"><%= link_to list.name, list_path(list), class: "text-decoration-none text-black" %></li>
-      <%= cl_image_tag @lists.photo.key, height: 300, width: 400, crop: :fill %>
+      <div class="card-product">
+        <%= cl_image_tag list.photo.key, height: 300, width: 400, crop: :fill %>
+        <div class="card-product-infos">
+          <h2> <%= link_to list.name, list_path(list), class: "text-decoration-none text-black" %> </h2>
+        </div>
+      </div>
     <% end %>
-  </ul>
   <% else %>
     "You don't have any lists yet..."
-  <% end %>
+   <% end %>
 </div>
 
     <%# <%= link_to "add a List", new_list_path  %>
