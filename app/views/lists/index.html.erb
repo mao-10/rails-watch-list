@@ -1,23 +1,29 @@
 <div class="container p-3 text-center">
 
-  <h1>Movie Lists</h1>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= image_path "index_banner_pic.jpg" %>')">
+    <h1>A place for movie lovers</strong> to <strong>create any list they want</strong>!</h1>
+    <p>~Enjoy~</p>
+  </div>
 
   <% if @lists.any? %>
-    <%@lists.each do |list|%>
-      <div class="card-product">
-        <% if list.photo.attached?%>
-          <%= cl_image_tag list.photo.key, height: 300, width: 400, crop: :fill %>
-        <% else %>
-          <%= image_tag "default_photo.jpg" %>
-        <% end %>
-        <div class="card-product-infos">
-          <h2> <%= link_to list.name, list_path(list), class: "text-decoration-none text-black" %> </h2>
+    <div class="row">
+      <%@lists.each do |list|%>
+        <div class="col-4">
+          <div class="mt-5">
+            <% if list.photo.attached?%>
+              <div class="card-category w-100" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path list.photo.key, crop: :fill %>')">
+                <h2> <%= link_to list.name, list_path(list), class: "text-decoration-none text-white" %> </h2>
+              </div>
+            <% else %>
+              <div class="card-category w-100" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= image_path "default_photo.jpg" %>')">
+                <h2> <%= link_to list.name, list_path(list), class: "text-decoration-none text-white" %> </h2>
+              </div>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   <% else %>
     "You don't have any lists yet..."
    <% end %>
 </div>
-
-    <%# <%= link_to "add a List", new_list_path  %>
